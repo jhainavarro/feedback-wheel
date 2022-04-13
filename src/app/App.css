@@ -1,0 +1,25 @@
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.App-logo {
+  font-size: 3rem;
+}
+
+.App-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.App-content {
+  flex-grow: 1;
+}
