@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Global, MantineProvider } from "@mantine/core";
+import { Global, MantineProvider, ScrollArea } from "@mantine/core";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/600.css";
 import "@fontsource/inter/800.css";
@@ -16,7 +16,11 @@ export function StylesProvider({ children }: StylesProviderProps) {
       withGlobalStyles
       theme={{
         fontFamily: "'Inter', sans-serif",
-        headings: { fontFamily: "'Abril Fatface', sans-serif" },
+        headings: {
+          fontFamily: "'Abril Fatface', sans-serif",
+          fontWeight: 400,
+        },
+        primaryColor: "pink",
       }}
     >
       <Global
@@ -27,11 +31,8 @@ export function StylesProvider({ children }: StylesProviderProps) {
           "*": {
             margin: 0,
           },
-          "html, body": {
-            height: "100vh",
-          },
           body: {
-            height: "100%",
+            height: "100vh",
             maxWidth: "1920px",
             margin: "0 auto",
             lineHeight: 1.5,
@@ -47,12 +48,26 @@ export function StylesProvider({ children }: StylesProviderProps) {
           "p, h1, h2, h3, h4, h5, h6": {
             overflowWrap: "break-word",
           },
+          a: {
+            display: "inline-block",
+          },
           "#root": {
             isolation: "isolate",
+            height: "100%",
+          },
+          // So `ScrollArea` content for the app takes up entire height
+          "[data-radix-scroll-area-viewport] > div": {
+            height: "100%",
           },
         })}
       />
-      {children}
+      <ScrollArea
+        type="scroll"
+        scrollHideDelay={500}
+        style={{ height: "100vh" }}
+      >
+        {children}
+      </ScrollArea>
     </MantineProvider>
   );
 }
