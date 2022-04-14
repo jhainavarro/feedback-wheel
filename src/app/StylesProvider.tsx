@@ -16,7 +16,11 @@ export function StylesProvider({ children }: StylesProviderProps) {
       withGlobalStyles
       theme={{
         fontFamily: "'Inter', sans-serif",
-        headings: { fontFamily: "'Abril Fatface', sans-serif" },
+        headings: {
+          fontFamily: "'Abril Fatface', sans-serif",
+          fontWeight: 400,
+        },
+        primaryColor: "pink",
       }}
     >
       <Global

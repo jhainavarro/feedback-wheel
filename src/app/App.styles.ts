@@ -5,22 +5,27 @@ export const useStyles = createStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
+
   header: {
-    padding: theme.spacing.lg,
+    padding: theme.spacing.xl,
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
   },
+
   logo: {
     fontSize: 42,
     fontWeight: "normal",
     letterSpacing: "0.08em",
   },
+
   nav: {
     display: "flex",
     gap: theme.spacing.lg,
   },
+
   content: {
     flexGrow: 1,
+    padding: theme.spacing.xl,
   },
 }));
