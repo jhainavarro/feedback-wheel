@@ -23,6 +23,7 @@ export const useStyles = createStyles((theme) => ({
   },
 
   formContainer: {
+    zIndex: 2,
     overflow: "hidden",
 
     opacity: 1,
@@ -40,7 +41,6 @@ export const useStyles = createStyles((theme) => ({
   success: {
     position: "absolute",
     top: 0,
-    zIndex: -1,
     marginTop: 160,
 
     opacity: 0,
@@ -49,5 +49,9 @@ export const useStyles = createStyles((theme) => ({
     "&.active": {
       opacity: 1,
     },
+  },
+
+  videosLink: {
+    marginTop: theme.spacing.md,
   },
 }));

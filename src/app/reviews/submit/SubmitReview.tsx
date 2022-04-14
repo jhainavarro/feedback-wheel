@@ -1,9 +1,10 @@
-import { SimpleGrid, Text, Title } from "@mantine/core";
+import { Anchor, SimpleGrid, Text, Title } from "@mantine/core";
 import { useState } from "react";
 import Lottie from "lottie-react";
 import checkmarkAnimation from "shared/assets/success-lottie.json";
 import { useStyles } from "./SubmitReview.styles";
 import { RequestReviewForm } from "./SubmitReviewForm";
+import { Link } from "react-router-dom";
 
 export function RequestReviews() {
   const { classes, cx } = useStyles();
@@ -50,7 +51,9 @@ export function RequestReviews() {
           )}
           <Title order={2}>Thank you!</Title>
           <Text>You've just made this community a better place</Text>
-          <Text>Check out other videos you can review</Text>
+          <Anchor className={classes.videosLink} component={Link} to="/">
+            Check out other videos you can review
+          </Anchor>
         </div>
       </div>
     </SimpleGrid>
