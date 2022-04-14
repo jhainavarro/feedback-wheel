@@ -2,8 +2,8 @@ import { SimpleGrid, Text, Title } from "@mantine/core";
 import { useState } from "react";
 import Lottie from "lottie-react";
 import checkmarkAnimation from "shared/assets/success-lottie.json";
-import { useStyles } from "./RequestReview.styles";
-import { RequestReviewForm } from "./RequestReviewsForm";
+import { useStyles } from "./SubmitReview.styles";
+import { RequestReviewForm } from "./SubmitReviewForm";
 
 export function RequestReviews() {
   const { classes, cx } = useStyles();
@@ -16,17 +16,19 @@ export function RequestReviews() {
       className={classes.grid}
       spacing={40}
     >
-      <iframe
-        width="280"
-        height="400"
-        // TODO: Replace with Youtube video to review
-        src="https://www.youtube-nocookie.com/embed/f3mwKLXpOLk"
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        className={classes.video}
-      ></iframe>
+      <div className={classes.left}>
+        <iframe
+          width="280"
+          height="400"
+          // TODO: Get actual video to review
+          src="https://www.youtube-nocookie.com/embed/4prVdA7_6u0"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className={classes.video}
+        ></iframe>
+      </div>
 
       <div className={classes.right}>
         <div className={cx(classes.formContainer, { active: !showSuccess })}>
@@ -37,6 +39,7 @@ export function RequestReviews() {
         </div>
 
         <div className={cx(classes.success, { active: showSuccess })}>
+          {/* FIXME: Plays twice */}
           {showSuccess && (
             <Lottie
               style={{ width: "150px" }}

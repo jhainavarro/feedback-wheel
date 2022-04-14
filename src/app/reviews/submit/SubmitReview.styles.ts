@@ -5,6 +5,12 @@ export const useStyles = createStyles((theme) => ({
     justifyItems: "center",
   },
 
+  left: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+  },
+
   video: {
     width: "min(700px, 100%)",
     marginTop: theme.spacing.xl * 4,
@@ -19,9 +25,9 @@ export const useStyles = createStyles((theme) => ({
   formContainer: {
     overflow: "hidden",
 
-    opacity: 0,
+    opacity: 1,
     maxHeight: 0,
-    transition: "max-height 500ms 300ms, opacity 800ms",
+    transition: "max-height 300ms 150ms, opacity 300ms",
 
     "&.active": {
       opacity: 1,
@@ -38,12 +44,10 @@ export const useStyles = createStyles((theme) => ({
     marginTop: 160,
 
     opacity: 0,
-    transform: "scale(0.8)",
-    transition: "transform 500ms 800ms, opacity 100ms 1500ms",
+    transition: "opacity 500ms 800ms",
 
     "&.active": {
       opacity: 1,
-      transform: "scale(1)",
     },
   },
 }));

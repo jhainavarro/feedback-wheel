@@ -8,8 +8,8 @@ import {
   Inputs,
   schema,
   SLIDER_MARKS,
-} from "./RequestReviewForm.helpers";
-import { useStyles } from "./RequestReviewForm.styles";
+} from "./SubmitReviewForm.helpers";
+import { useStyles } from "./SubmitReviewForm.styles";
 
 interface RequestReviewFormProps {
   className?: string;
