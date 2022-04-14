@@ -1,5 +1,6 @@
 import { Button, Slider, Text, Textarea, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
+import { useState } from "react";
 import {
   FORM_FIELDS,
   getCommentPlaceholder,
@@ -10,15 +11,33 @@ import {
 } from "./RequestReviewForm.helpers";
 import { useStyles } from "./RequestReviewForm.styles";
 
-export function RequestReviewForm() {
-  const { classes } = useStyles();
+interface RequestReviewFormProps {
+  className?: string;
+  onSave: () => void;
+}
+
+export function RequestReviewForm({
+  className,
+  onSave,
+}: RequestReviewFormProps) {
+  const { classes, cx } = useStyles();
   const form = useForm({
     initialValues: getInitialValues(),
     schema: zodResolver(schema),
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   function handleSubmit(data: Inputs) {
     console.log(data);
+    setIsLoading(true);
+
+    // TODO: Persist to data storage
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsSuccess(true);
+      onSave();
+    }, 3000);
   }
 
   function renderTitle(title: string, required = true) {
@@ -31,7 +50,10 @@ export function RequestReviewForm() {
   }
 
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)} className={classes.form}>
+    <form
+      onSubmit={form.onSubmit(handleSubmit)}
+      className={cx(className, classes.form, { success: isSuccess })}
+    >
       {FORM_FIELDS.map((field) => {
         const { error, ...props } = form.getInputProps(field.input);
 
@@ -75,7 +97,7 @@ export function RequestReviewForm() {
       </div>
 
       <div className={classes.footer}>
-        <Button type="submit" size="lg">
+        <Button type="submit" size="lg" loading={isLoading || isSuccess}>
           Submit review
         </Button>
       </div>

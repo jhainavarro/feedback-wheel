@@ -20,6 +20,7 @@ export const useStyles = createStyles((theme) => ({
     color: theme.colors.red[7],
     fontSize: theme.fontSizes.xs,
     marginTop: 4,
+
     "&:after": {
       content: "' '",
       whiteSpace: "pre",
@@ -38,5 +39,6 @@ export const useStyles = createStyles((theme) => ({
 
   footer: {
     marginTop: 44,
+    marginBottom: 64,
   },
 }));

@@ -23,8 +23,11 @@ export type Inputs = {
 /**
  * Schema validation for the form data
  */
-const ratingValidator = z.number().min(1, "Please provide a rating");
+// TODO: For testing only
+const ratingValidator = z.number();
 const commentValidator = z.string();
+// const ratingValidator = z.number().min(1, "Please provide a rating");
+// const commentValidator = z.string();
 export const schema = z.object({
   attentionGrabbing: ratingValidator,
   attentionGrabbingComments: commentValidator,
