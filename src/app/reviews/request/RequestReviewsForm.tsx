@@ -7,10 +7,10 @@ import {
   Inputs,
   schema,
   SLIDER_MARKS,
-} from "./RequestReview.helpers";
-import { useStyles } from "./RequestReview.styles";
+} from "./RequestReviewForm.helpers";
+import { useStyles } from "./RequestReviewForm.styles";
 
-export function RequestReviews() {
+export function RequestReviewForm() {
   const { classes } = useStyles();
   const form = useForm({
     initialValues: getInitialValues(),
