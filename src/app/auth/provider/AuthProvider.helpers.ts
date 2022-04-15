@@ -18,3 +18,10 @@ export function getSavedSession() {
 export function saveSession(user: User) {
   localStorage.setItem(SESSION_KEY, JSON.stringify(user));
 }
+
+/**
+ * Deletes the user as the current session in browser storage
+ */
+export function deleteSession() {
+  localStorage.removeItem(SESSION_KEY);
+}

@@ -1,7 +1,11 @@
 import { ReactNode, useState } from "react";
 import { User } from "../auth.types";
 import { AuthContext } from "./AuthContext";
-import { getSavedSession, saveSession } from "./AuthProvider.helpers";
+import {
+  deleteSession,
+  getSavedSession,
+  saveSession,
+} from "./AuthProvider.helpers";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -21,6 +25,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   function onLogout() {
+    deleteSession();
     setUser(undefined);
   }
 

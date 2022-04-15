@@ -1,13 +1,14 @@
-import { Button, Title } from "@mantine/core";
+import { Button, Menu, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { Link, Navigate, Outlet } from "react-router-dom";
+import { ReactComponent as Logout } from "shared/assets/logout.svg";
 import { useStyles } from "./App.styles";
 import { useAuth } from "./auth";
 import { RequestReview } from "./reviews";
 import { initStorage } from "./videos";
 
 export function App() {
-  const { user } = useAuth();
+  const { user, onLogout } = useAuth();
   const { classes } = useStyles();
   const [isRequestReviewOpen, setIsRequestReviewOpen] = useState(false);
 
@@ -31,6 +32,15 @@ export function App() {
           <Button onClick={() => setIsRequestReviewOpen(true)}>
             Request reviews
           </Button>
+
+          <Menu gutter={12} size="xs">
+            <Menu.Item
+              icon={<Logout width={16} height={16} />}
+              onClick={() => onLogout()}
+            >
+              Log out
+            </Menu.Item>
+          </Menu>
         </nav>
       </div>
 
