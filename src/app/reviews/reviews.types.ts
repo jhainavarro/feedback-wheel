@@ -1,3 +1,4 @@
+import { User } from "app/auth";
 import { Video } from "app/videos";
 
 export interface ReviewContent {
@@ -21,9 +22,10 @@ export interface ReviewContent {
 export type Review = ReviewContent & {
   id: number;
   videoId: Video["id"];
-  // submittedBy: User;
+  submittedBy: User;
 };
 
 export type AddReviewInput = ReviewContent & {
   videoId: Video["id"];
+  submittedBy: User;
 };

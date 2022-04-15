@@ -1,8 +1,10 @@
 import { Button, Text, Textarea, Title, useMantineTheme } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import StarRatings from "react-star-ratings";
-import { Video } from "app/videos";
 import { useState } from "react";
+import StarRatings from "react-star-ratings";
+import { useAuth } from "app/auth";
+import { Video } from "app/videos";
+import { toast } from "shared/components";
 import { useAddReview } from "../reviews.api";
 import {
   FORM_FIELDS,
@@ -23,6 +25,7 @@ export function SubmitReviewForm({
   video,
   onSave,
 }: SubmitReviewFormProps) {
+  const { user } = useAuth();
   const { classes, cx } = useStyles();
   const theme = useMantineTheme();
   const form = useForm({
@@ -33,8 +36,19 @@ export function SubmitReviewForm({
   const [isSuccess, setIsSuccess] = useState(false);
 
   function handleSubmit(data: Inputs) {
+    if (!user) {
+      toast.error({
+        message: "Oops, can't do that. Please refresh the page then try again.",
+      });
+
+      return;
+    }
+
+    // TODO: Should not be able to submit a review to own video
+    // TODO: Clarify if a user can submit multiple reviews to a single video
+
     addReview(
-      { ...data, videoId: video.id },
+      { ...data, videoId: video.id, submittedBy: user },
       {
         onSuccess() {
           setIsSuccess(true);
