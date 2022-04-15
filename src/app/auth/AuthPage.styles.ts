@@ -77,8 +77,12 @@ export const useStyles = createStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    background: "linear-gradient(to right, #FF4B2B, #FF416C)",
     color: theme.white,
+    background: theme.fn.linearGradient(
+      90,
+      theme.colors.pink[6],
+      theme.colors.violet[6]
+    ),
 
     transform: "translateX(0)",
     transition: "transform 500ms ease-in-out",
