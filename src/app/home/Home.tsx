@@ -36,7 +36,7 @@ export function Home() {
               withBorder
               shadow="md"
               component={Link}
-              to={`/video/${video.id}/review`}
+              to={`/video/${video.id}`}
               title={video.title}
             >
               <Card.Section>

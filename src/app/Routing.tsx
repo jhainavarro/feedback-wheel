@@ -3,6 +3,7 @@ import { App } from "./App";
 import { AuthPage } from "./auth";
 import { Home } from "./home";
 import { SubmitReview } from "./reviews";
+import { VideoPage } from "./videos";
 
 export function Routing() {
   return (
@@ -10,6 +11,7 @@ export function Routing() {
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/" element={<App />}>
         <Route path="/home" element={<Home />} />
+        <Route path="/video/:id" element={<VideoPage />} />
         <Route path="/video/:id/review" element={<SubmitReview />} />
       </Route>
     </Routes>
