@@ -1,7 +1,8 @@
-import { QueryKey, useQuery } from "react-query";
-import { Video } from "./videos.types";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { AddVideoInput, Video } from "./videos.types";
+import { getVideoMetadata } from "./videos.utils";
 
-export const VIDEOS_KEY: QueryKey = "videos";
+export const VIDEOS_KEY = "videos";
 
 /**
  * @returns The list of videos up for review
@@ -10,7 +11,7 @@ export function useGetVideos() {
   return useQuery(VIDEOS_KEY, () => {
     return new Promise<Video[]>((resolve) => {
       setTimeout(() => {
-        resolve(MOCK_VIDEOS_FOR_REVIEW);
+        resolve(getStoredVideos());
       }, 2000);
     });
   });
@@ -24,11 +25,66 @@ export function useGetVideo(id: Video["id"]) {
   return useQuery([VIDEOS_KEY, id], () => {
     return new Promise<Video | undefined>((resolve) => {
       setTimeout(() => {
-        const video = MOCK_VIDEOS_FOR_REVIEW.find((video) => video.id === id);
-        resolve(video);
+        resolve(getStoredVideos().find((video) => video.id === id));
       }, 2000);
     });
   });
+}
+
+/**
+ * Adds the submitted video to the list of available ones for review
+ *
+ * @returns The submitted Video object
+ */
+export function useSaveVideo() {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (input: AddVideoInput) => {
+      return new Promise<Video>(async (resolve, reject) => {
+        try {
+          const stored = getStoredVideos();
+          const { title } = await getVideoMetadata(input.url);
+          const newVideo: Video = {
+            ...input,
+            id: Date.now(), // Just for simplicity
+            title,
+          };
+          const newList = stored.concat(newVideo);
+
+          localStorage.setItem(VIDEOS_KEY, JSON.stringify(newList));
+
+          resolve(newVideo);
+        } catch (e) {
+          console.error(e);
+          reject(new Error("Unable to save video for review"));
+        }
+      });
+    },
+    {
+      onSuccess() {
+        queryClient.invalidateQueries(VIDEOS_KEY);
+      },
+    }
+  );
+}
+
+/**
+ * @returns The list of videos in the data storage
+ */
+function getStoredVideos() {
+  const stored = localStorage.getItem(VIDEOS_KEY);
+  const list: Video[] = JSON.parse(stored ?? "[]");
+
+  return list;
+}
+
+/**
+ * Helper function to warm up the local storage with mock data
+ * FOR TESTING ONLY!
+ */
+export function initStorage() {
+  localStorage.setItem(VIDEOS_KEY, JSON.stringify(MOCK_VIDEOS_FOR_REVIEW));
 }
 
 const MOCK_VIDEOS_FOR_REVIEW: Video[] = [

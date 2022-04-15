@@ -1,4 +1,4 @@
-import { Video } from "./videos.types";
+import { Video, YoutubeVideo } from "./videos.types";
 
 /**
  * @param youtubeUrl
@@ -36,6 +36,22 @@ export function getThumbnailUrl(youtubeUrl: string) {
   return videoId
     ? `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`
     : undefined;
+}
+
+/**
+ * TODO: Use Youtube API with proper keys to get more details
+ *
+ * @param youtubeUrl
+ * @returns Some info on the given Youtube video
+ */
+export async function getVideoMetadata(youtubeUrl: string) {
+  const response = await fetch(
+    `https://www.youtube.com/oembed?format=json&url=${youtubeUrl}`
+  );
+
+  const body = (await response.json()) as YoutubeVideo;
+
+  return body;
 }
 
 /**

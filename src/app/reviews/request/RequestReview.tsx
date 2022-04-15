@@ -9,8 +9,8 @@ import {
 } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { useDebouncedValue } from "@mantine/hooks";
-import { getThumbnailUrl } from "app/videos";
-import { useState } from "react";
+import { getThumbnailUrl, useSaveVideo } from "app/videos";
+import { useEffect } from "react";
 import { ReactComponent as Sparkles } from "shared/assets/sparkles.svg";
 import { getInitialValues, Inputs, schema } from "./RequestReview.helpers";
 import { useStyles } from "./RequestReview.styles";
@@ -27,20 +27,29 @@ export function RequestReview({ open, onClose, onSave }: RequestReviewProps) {
     initialValues: getInitialValues(),
     schema: zodResolver(schema),
   });
+  const { mutate: saveVideo, isLoading } = useSaveVideo();
   const [urlDebounced] = useDebouncedValue(form.values.url, 500);
-  const [isLoading, setIsLoading] = useState(false);
 
   function handleSubmit(data: Inputs) {
-    console.log(data);
-    setIsLoading(true);
-
-    // TODO: Persist to data storage
-    setTimeout(() => {
-      setIsLoading(false);
-      onSave();
-      form.reset();
-    }, 3000);
+    saveVideo(data, {
+      onSuccess() {
+        onSave();
+        // TODO: Show success message
+      },
+      onError() {
+        // TODO: Show error message
+      },
+    });
   }
+
+  useEffect(() => {
+    if (open) {
+      form.reset();
+    }
+
+    // Form reset updates the local state and triggers infinite re-rendering
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   return (
     <Modal
