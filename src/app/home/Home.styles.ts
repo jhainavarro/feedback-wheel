@@ -29,4 +29,10 @@ export const useStyles = createStyles((theme) => ({
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
+
+  loading: {
+    height: "100%",
+    display: "grid",
+    placeItems: "center",
+  },
 }));

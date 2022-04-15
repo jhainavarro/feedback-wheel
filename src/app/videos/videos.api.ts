@@ -1,4 +1,32 @@
+import { QueryKey, useQuery } from "react-query";
 import { Video } from "./videos.types";
+
+export const VIDEOS_KEY: QueryKey = "videos";
+
+/**
+ * @returns The list of videos up for review
+ */
+export function useGetVideos() {
+  return useQuery(VIDEOS_KEY, () => {
+    return new Promise<Video[]>((resolve) => {
+      setTimeout(() => {
+        resolve(MOCK_VIDEOS_FOR_REVIEW);
+      }, 2000);
+    });
+  });
+}
+
+/**
+ * @param id
+ * @returns The Video object with the given id
+ */
+export function useGetVideo(id?: Video["id"]) {
+  if (!id) {
+    return undefined;
+  }
+
+  return MOCK_VIDEOS_FOR_REVIEW.find((video) => video.id === id);
+}
 
 const MOCK_VIDEOS_FOR_REVIEW: Video[] = [
   {
@@ -60,22 +88,3 @@ const MOCK_VIDEOS_FOR_REVIEW: Video[] = [
     title: 'Mayonnaise performs "Bakit Part 2" LIVE on Wish 107.5 Bus',
   },
 ];
-
-/**
- * @returns The list of videos up for review
- */
-export function useGetVideos() {
-  return MOCK_VIDEOS_FOR_REVIEW;
-}
-
-/**
- * @param id
- * @returns The Video object with the given id
- */
-export function useGetVideo(id?: Video["id"]) {
-  if (!id) {
-    return undefined;
-  }
-
-  return MOCK_VIDEOS_FOR_REVIEW.find((video) => video.id === id);
-}

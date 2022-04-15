@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { useGetVideos } from "./videos.api";
 import { Video } from "./videos.types";
 
 /**
@@ -43,14 +41,6 @@ export function getThumbnailUrl(youtubeUrl: string) {
 /**
  * @returns The list of sorted videos for review
  */
-export function useVideos() {
-  const videos = useGetVideos();
-  const [list, setList] = useState<Video[]>([]);
-
-  useEffect(() => {
-    const items = videos.slice().sort((a, b) => b.id - a.id);
-    setList(items);
-  }, [videos]);
-
-  return list;
+export function useVideos(videos: Video[]) {
+  return videos.slice().sort((a, b) => b.id - a.id);
 }
