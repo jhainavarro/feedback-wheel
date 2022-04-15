@@ -4,16 +4,18 @@ import { Link, Navigate, Outlet } from "react-router-dom";
 import { ReactComponent as Logout } from "shared/assets/logout.svg";
 import { useStyles } from "./App.styles";
 import { useAuth } from "./auth";
+import { initAuthStorage, initVideosStorage } from "./mocks";
 import { RequestReview } from "./reviews";
-import { initStorage } from "./videos";
 
 export function App() {
   const { user, onLogout } = useAuth();
   const { classes } = useStyles();
   const [isRequestReviewOpen, setIsRequestReviewOpen] = useState(false);
 
+  // For easier testing
   useEffect(() => {
-    initStorage();
+    initAuthStorage();
+    initVideosStorage();
   }, []);
 
   if (!user) {

@@ -21,7 +21,7 @@ export interface ReviewContent {
 export type Review = ReviewContent & {
   id: number;
   videoId: Video["id"];
-  // TODO: Add submitter details
+  // submittedBy: User;
 };
 
 export type AddReviewInput = ReviewContent & {

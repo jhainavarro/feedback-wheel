@@ -1,3 +1,4 @@
+import { User } from "app/auth/auth.types";
 import { Review } from "app/reviews";
 
 export interface Video {
@@ -8,7 +9,7 @@ export interface Video {
   url: string;
   title: string;
   reviews: Review[];
-  // TODO: Add creator info
+  submittedBy: User;
 }
 
 // This is currently only from the Youtube OEmbed API
@@ -33,6 +34,7 @@ export interface YoutubeVideo {
 
 export interface AddVideoInput {
   url: string;
+  submittedBy: User;
 }
 
 export interface EditVideoInput {
