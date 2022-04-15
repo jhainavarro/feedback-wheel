@@ -35,12 +35,15 @@ export function Signup({ className }: SignupProps) {
     signup(data, {
       onSuccess(newUser) {
         onSignup(newUser);
-        navigate("/home");
+        navigate("/home"); // TODO: Redirect to onboarding page
         toast.success({
           title: "Welcome! 🎉",
           message:
             "Glad to have you with us! Please feel free to explore the videos, and even submit one for others to check out!",
         });
+      },
+      onError() {
+        // TODO: Show error message
       },
     });
   }
