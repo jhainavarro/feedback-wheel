@@ -22,6 +22,14 @@ export function StylesProvider({ children }: StylesProviderProps) {
         },
         primaryColor: "pink",
       }}
+      styles={{
+        TextInput: (theme) => ({
+          error: { fontSize: theme.fontSizes.xs, textAlign: "left" },
+        }),
+        PasswordInput: (theme) => ({
+          error: { fontSize: theme.fontSizes.xs, textAlign: "left" },
+        }),
+      }}
     >
       <Global
         styles={() => ({
