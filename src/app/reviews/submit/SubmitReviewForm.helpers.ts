@@ -61,6 +61,7 @@ export const SLIDER_MARKS = [
 export type FormField = {
   input: keyof Inputs;
   commentsInput: keyof Inputs;
+  commentsPlaceholder: string;
   label: string;
   description: string;
 };
@@ -69,6 +70,7 @@ export const FORM_FIELDS: FormField[] = [
   {
     input: "attentionGrabbing",
     commentsInput: "attentionGrabbingComments",
+    commentsPlaceholder: "Care to share more?",
     label: "Attention Grabbing",
     description:
       "Did the video create a hook in the first 120 seconds that would make viewers want to stick around until the end of the video?",
@@ -76,6 +78,7 @@ export const FORM_FIELDS: FormField[] = [
   {
     input: "storytelling",
     commentsInput: "storytellingComments",
+    commentsPlaceholder: "Do you have any more comments on this?",
     label: "Storytelling",
     description:
       "Does the video follow a captivating storytelling arc that includes an inciting incident, conflict, climax, or a resolution? Does the reviewer feel an emotional connection with the characters, events, or scenes?",
@@ -83,12 +86,14 @@ export const FORM_FIELDS: FormField[] = [
   {
     input: "audioQuality",
     commentsInput: "audioQualityComments",
+    commentsPlaceholder: "Do you want to share any specifics?",
     label: "Audio Quality",
     description: "How clear and premium is the audio quality?",
   },
   {
     input: "videoQuality",
     commentsInput: "videoQualityComments",
+    commentsPlaceholder: "Any pointers for improvement?",
     label: "Video Quality",
     description:
       "How is the video shot? Is the camera held steady or does it shake? (We're not looking for production quality, it can be shot on iPhone - we are looking to grade videography skills here)",
@@ -96,6 +101,7 @@ export const FORM_FIELDS: FormField[] = [
   {
     input: "musicAndScoring",
     commentsInput: "musicAndScoringComments",
+    commentsPlaceholder: "Anything specific that stood out for you?",
     label: "Music & Scoring",
     description:
       "Is the video scored in such a way that it provides the right energy and emotion to captivate viewers?",
@@ -103,6 +109,7 @@ export const FORM_FIELDS: FormField[] = [
   {
     input: "lengthAndPacing",
     commentsInput: "lengthAndPacingComments",
+    commentsPlaceholder: "Care to share more?",
     label: "Length & Pacing",
     description:
       "Does the video hold an engaging pace given the intended style & format of video? When did the reviewer get bored (if at all)? Are there numerous moments that could create retention dips and audience drop-off? If so, maybe mention some time stamps.",
@@ -110,6 +117,7 @@ export const FORM_FIELDS: FormField[] = [
   {
     input: "packaging",
     commentsInput: "packagingComments",
+    commentsPlaceholder: "Do you have any more comments on this?",
     label: "Packaging",
     description:
       "How well is the video titled + thumbnail-ed? Is it something that you think accurately depicts the substance of the video while also enticing general viewers to click-through to watch the video from YouTube's homepage?",
@@ -137,20 +145,4 @@ export function getInitialValues(): Inputs {
     packagingComments: "",
     overallComments: "",
   };
-}
-
-/**
- * @returns A random placeholder text for the textarea
- */
-const COMMENTS_PLACEHOLDERS = [
-  "Care to share more?",
-  "Do you have any more comments on this?",
-  "Do you want to share any specifics?",
-  "Anything specific that stood out for you?",
-  "Any pointers for improvement?",
-];
-
-export function getCommentPlaceholder(): string {
-  const index = Math.floor(Math.random() * COMMENTS_PLACEHOLDERS.length);
-  return COMMENTS_PLACEHOLDERS[index];
 }

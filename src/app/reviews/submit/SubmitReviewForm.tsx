@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useAddReview } from "../reviews.api";
 import {
   FORM_FIELDS,
-  getCommentPlaceholder,
   getInitialValues,
   Inputs,
   schema,
@@ -81,7 +80,7 @@ export function SubmitReviewForm({
             <Textarea
               {...form.getInputProps(field.commentsInput)}
               // FIXME: Re-renders on state updates
-              placeholder={getCommentPlaceholder()}
+              placeholder={field.commentsPlaceholder}
               className={classes.textarea}
               minRows={3}
               autosize
