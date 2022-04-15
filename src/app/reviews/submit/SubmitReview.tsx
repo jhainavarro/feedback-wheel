@@ -1,4 +1,4 @@
-import { Anchor, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Loader, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import Lottie from "lottie-react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -10,10 +10,19 @@ import { SubmitReviewForm } from "./SubmitReviewForm";
 
 export function SubmitReview() {
   const params = useParams();
-  const video = useGetVideo(Number(params.id));
+  const { data: video, isLoading } = useGetVideo(Number(params.id));
   const { classes, cx } = useStyles();
   const [showSuccess, setShowSuccess] = useState(false);
 
+  if (isLoading) {
+    return (
+      <div className={classes.loading}>
+        <Loader variant="dots" />
+      </div>
+    );
+  }
+
+  // TODO: Error state
   if (!params.id || !video) {
     return (
       <div className={classes.empty}>
@@ -41,7 +50,6 @@ export function SubmitReview() {
         <iframe
           width="280"
           height="400"
-          // TODO: Get actual video to review
           src={getEmbedUrl(video.url)}
           title="YouTube video player"
           frameBorder="0"

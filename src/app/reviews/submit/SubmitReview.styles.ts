@@ -70,4 +70,11 @@ export const useStyles = createStyles((theme) => ({
   emptyImg: {
     width: 500,
   },
+
+  loading: {
+    // marginTop: theme.spacing.xl * 10,
+    height: "100%",
+    display: "grid",
+    placeItems: "center",
+  },
 }));

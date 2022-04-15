@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { useGetVideos } from "./videos.api";
-import { Video } from "./videos.types";
+import { Video, YoutubeVideo } from "./videos.types";
 
 /**
  * @param youtubeUrl
@@ -41,16 +39,24 @@ export function getThumbnailUrl(youtubeUrl: string) {
 }
 
 /**
+ * TODO: Use Youtube API with proper keys to get more details
+ *
+ * @param youtubeUrl
+ * @returns Some info on the given Youtube video
+ */
+export async function getVideoMetadata(youtubeUrl: string) {
+  const response = await fetch(
+    `https://www.youtube.com/oembed?format=json&url=${youtubeUrl}`
+  );
+
+  const body = (await response.json()) as YoutubeVideo;
+
+  return body;
+}
+
+/**
  * @returns The list of sorted videos for review
  */
-export function useVideos() {
-  const videos = useGetVideos();
-  const [list, setList] = useState<Video[]>([]);
-
-  useEffect(() => {
-    const items = videos.slice().sort((a, b) => b.id - a.id);
-    setList(items);
-  }, [videos]);
-
-  return list;
+export function useVideos(videos: Video[]) {
+  return videos.slice().sort((a, b) => b.id - a.id);
 }
