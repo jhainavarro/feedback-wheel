@@ -10,6 +10,8 @@ import { ReactComponent as Google } from "shared/assets/google.svg";
 import { ReactComponent as Twitter } from "shared/assets/twitter.svg";
 import { ReactComponent as Facebook } from "shared/assets/facebook.svg";
 import { useStyles } from "./Signup.styles";
+import { useForm, zodResolver } from "@mantine/form";
+import { getInitialValues, Inputs, schema } from "./Signup.helpers";
 
 interface SignupProps {
   className?: string;
@@ -17,10 +19,18 @@ interface SignupProps {
 
 export function Signup({ className }: SignupProps) {
   const { classes } = useStyles();
+  const form = useForm({
+    initialValues: getInitialValues(),
+    schema: zodResolver(schema),
+  });
+
+  function handleSubmit(data: Inputs) {
+    console.log(data);
+  }
 
   return (
     <div className={className}>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={form.onSubmit(handleSubmit)}>
         <Title className={classes.title}>Create Account</Title>
 
         <div className={classes.socials}>
@@ -37,11 +47,27 @@ export function Signup({ className }: SignupProps) {
 
         <Text color="gray">——— or ———</Text>
 
-        <TextInput className={classes.input} placeholder="Name" />
-        <TextInput className={classes.input} placeholder="Email" />
-        <PasswordInput className={classes.input} placeholder="Password" />
+        <TextInput
+          {...form.getInputProps("name")}
+          className={classes.input}
+          placeholder="Name"
+        />
 
-        <Button className={classes.submit}>Sign Up</Button>
+        <TextInput
+          {...form.getInputProps("email")}
+          className={classes.input}
+          placeholder="Email"
+        />
+
+        <PasswordInput
+          {...form.getInputProps("password")}
+          className={classes.input}
+          placeholder="Password"
+        />
+
+        <Button type="submit" className={classes.submit}>
+          Sign Up
+        </Button>
       </form>
     </div>
   );

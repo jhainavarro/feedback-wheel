@@ -13,7 +13,7 @@ export const useStyles = createStyles((theme) => ({
   },
 
   title: {
-    marginBottom: theme.spacing.lg * 2,
+    marginBottom: theme.spacing.lg,
   },
 
   socials: {
@@ -36,6 +36,6 @@ export const useStyles = createStyles((theme) => ({
   },
 
   submit: {
-    marginTop: theme.spacing.xl * 2,
+    marginTop: theme.spacing.xl,
   },
 }));
