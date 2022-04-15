@@ -31,25 +31,47 @@ export function AuthPage() {
         >
           <div className={classes.prompts}>
             <div className={cx("login-prompt", classes.prompt)}>
-              <Title>Welcome Back!</Title>
-              <Text>
-                To keep connected with us please login with your account
-              </Text>
+              <div></div>
+              <div>
+                <Title>Welcome Back!</Title>
+                <Text>To keep connected with us please login</Text>
+                <Text>with your account</Text>
+              </div>
 
-              <Text>Don't have an account yet?</Text>
-              <Button variant="outline" onClick={() => setActive("signup")}>
-                Sign up here
-              </Button>
+              <footer>
+                <Text size="xs" pb={4}>
+                  Don't have an account yet?
+                </Text>
+                <Button
+                  variant="outline"
+                  size="xs"
+                  onClick={() => setActive("signup")}
+                >
+                  Sign up here
+                </Button>
+              </footer>
             </div>
 
             <div className={cx("signup-prompt", classes.prompt)}>
-              <Title>Hey, Creator!</Title>
-              <Text>Enter your details and start your journey with us</Text>
+              <div></div>
+              <div>
+                <Title>Hey, Creator!</Title>
+                <Text>Enter your details and start your journey</Text>
+                <Text>with us</Text>
+              </div>
 
-              <Text>Already have an account?</Text>
-              <Button variant="outline" onClick={() => setActive("login")}>
-                Log in here
-              </Button>
+              <footer>
+                <Text size="xs" pb={4}>
+                  Already have an account?
+                </Text>
+                <Button
+                  variant="outline"
+                  size="xs"
+                  onClick={() => setActive("login")}
+                >
+                  Log in here
+                </Button>
+              </footer>
             </div>
           </div>
         </div>

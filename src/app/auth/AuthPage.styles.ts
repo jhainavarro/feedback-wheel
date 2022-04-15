@@ -111,13 +111,27 @@ export const useStyles = createStyles((theme) => ({
     top: 0,
     height: "100%",
     width: "50%",
-    flex: "1 1 0",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
     paddingBlock: 32,
     paddingInline: 60,
+    display: "grid",
+    gridTemplateRows: "repeat(3, 1fr)",
+
+    h1: {
+      marginBottom: theme.spacing.lg,
+    },
+
+    footer: {
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-end",
+      alignItems: "center",
+
+      button: {
+        color: theme.white,
+        border: "none",
+      },
+    },
 
     transform: "translateX(0)",
     transition: "transform 500ms ease-in-out",
