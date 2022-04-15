@@ -45,4 +45,13 @@ export const useStyles = createStyles((theme) => ({
   noReviews: {
     marginTop: 24,
   },
+
+  needMoreReviews: {
+    marginTop: 32,
+  },
+
+  eyesIcon: {
+    width: "100%",
+    height: "100%",
+  },
 }));
