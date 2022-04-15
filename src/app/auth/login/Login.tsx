@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Anchor,
   Button,
   PasswordInput,
@@ -6,26 +7,47 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+import { ReactComponent as Google } from "shared/assets/google.svg";
+import { ReactComponent as Twitter } from "shared/assets/twitter.svg";
+import { ReactComponent as Facebook } from "shared/assets/facebook.svg";
+import { useStyles } from "./Login.styles";
+import { Link } from "react-router-dom";
 
-export function Login() {
+interface LoginProps {
+  className?: string;
+}
+
+export function Login({ className }: LoginProps) {
+  const { classes } = useStyles();
+
   return (
-    <div>
-      <form>
-        <Title>Sign in</Title>
+    <div className={className}>
+      <form className={classes.form}>
+        <Title className={classes.title}>Sign in</Title>
 
-        <div>
-          <Button>Log in with Google</Button>
-          <Button>Log in with Twitter</Button>
-          <Button>Log in with Facebook</Button>
+        <div className={classes.socials}>
+          <ActionIcon size="lg">
+            <Google />
+          </ActionIcon>
+          <ActionIcon size="lg">
+            <Twitter />
+          </ActionIcon>
+          <ActionIcon size="lg">
+            <Facebook />
+          </ActionIcon>
         </div>
 
-        <Text>or use your account</Text>
+        <Text color="gray">——— or ———</Text>
 
-        <TextInput placeholder="Email" />
-        <PasswordInput placeholder="Password" />
-        <Anchor href=".">Forgot your password?</Anchor>
+        <TextInput className={classes.input} placeholder="Email" />
+        <PasswordInput className={classes.input} placeholder="Password" />
 
-        <Button>Sign In</Button>
+        {/* TODO: Forgot pw flow */}
+        <Anchor className={classes.forgotPw} component={Link} to="/">
+          Forgot your password?
+        </Anchor>
+
+        <Button className={classes.submit}>Sign In</Button>
       </form>
     </div>
   );
