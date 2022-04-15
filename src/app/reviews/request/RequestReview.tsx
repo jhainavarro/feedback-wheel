@@ -1,4 +1,12 @@
-import { Alert, Button, Image, Text, TextInput, Title } from "@mantine/core";
+import {
+  Alert,
+  Button,
+  Image,
+  Modal,
+  Text,
+  TextInput,
+  Title,
+} from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { useDebouncedValue } from "@mantine/hooks";
 import { getThumbnailUrl } from "app/videos";
@@ -7,7 +15,13 @@ import { ReactComponent as Sparkles } from "shared/assets/sparkles.svg";
 import { getInitialValues, Inputs, schema } from "./RequestReview.helpers";
 import { useStyles } from "./RequestReview.styles";
 
-export function RequestReview() {
+interface RequestReviewProps {
+  open?: boolean;
+  onClose: () => void;
+  onSave: () => void;
+}
+
+export function RequestReview({ open, onClose, onSave }: RequestReviewProps) {
   const { classes } = useStyles();
   const form = useForm({
     initialValues: getInitialValues(),
@@ -23,14 +37,17 @@ export function RequestReview() {
     // TODO: Persist to data storage
     setTimeout(() => {
       setIsLoading(false);
-      // onSave();
+      onSave();
+      form.reset();
     }, 3000);
   }
 
   return (
-    <>
-      <Title order={2}>Request for reviews on your video</Title>
-
+    <Modal
+      opened={!!open}
+      onClose={onClose}
+      title={<Title order={3}>Request for reviews on your video</Title>}
+    >
       <Alert
         icon={<Sparkles className={classes.alertIcon} />}
         className={classes.alert}
@@ -54,6 +71,7 @@ export function RequestReview() {
           required
           autoComplete="off"
           autoFocus
+          data-autofocus
         />
 
         <Text className={classes.thumbLabel}>Thumbnail:</Text>
@@ -68,15 +86,12 @@ export function RequestReview() {
           />
         </div>
 
-        <Button
-          type="submit"
-          size="lg"
-          loading={isLoading}
-          className={classes.submit}
-        >
-          Submit
-        </Button>
+        <footer className={classes.footer}>
+          <Button type="submit" size="lg" loading={isLoading}>
+            Submit
+          </Button>
+        </footer>
       </form>
-    </>
+    </Modal>
   );
 }

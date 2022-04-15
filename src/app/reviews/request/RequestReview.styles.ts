@@ -32,9 +32,12 @@ export const useStyles = createStyles((theme) => ({
     width: 320,
     height: 180,
     marginBlock: theme.spacing.sm,
+    marginInline: "auto",
   },
 
-  submit: {
+  footer: {
     marginTop: 40,
+    display: "flex",
+    justifyContent: "flex-end",
   },
 }));
