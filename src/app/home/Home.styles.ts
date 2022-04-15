@@ -10,6 +10,15 @@ export const useStyles = createStyles((theme) => ({
 
   card: {
     width: 320,
+
+    opacity: 0,
+    transform: "scale(0.9)",
+    transition: `all 300ms`,
+
+    "&.mounted": {
+      opacity: 1,
+      transform: "scale(1)",
+    },
   },
 
   title: {

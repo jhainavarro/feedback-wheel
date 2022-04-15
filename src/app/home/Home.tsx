@@ -1,18 +1,27 @@
 import { Card, Image, Text } from "@mantine/core";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getThumbnailUrl, useVideos } from "app/videos/videos.utils";
 import { useStyles } from "./Home.styles";
 
 export function Home() {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   const videos = useVideos();
+
+  // Initialize animation
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsMounted(true);
+    }, 500);
+  }, []);
 
   return (
     <div className={classes.container}>
       {videos.map((video) => (
         <Card
           key={video.id}
-          className={classes.card}
+          className={cx(classes.card, { mounted: isMounted })}
           withBorder
           shadow="md"
           component={Link}
