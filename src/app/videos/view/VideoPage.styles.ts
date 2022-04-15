@@ -41,4 +41,8 @@ export const useStyles = createStyles((theme) => ({
   quotes: {
     marginBlock: 40,
   },
+
+  noReviews: {
+    marginTop: 24,
+  },
 }));

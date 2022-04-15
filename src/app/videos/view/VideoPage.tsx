@@ -53,7 +53,7 @@ export function VideoPage() {
       <Text className={classes.title}>{video.title}</Text>
       <Text>{video.submittedBy.name}</Text>
 
-      {video.reviews.length && (
+      {video.reviews.length ? (
         <div className={classes.reviewsSection}>
           <div className={classes.reviewsHeader}>
             <Title order={2}>Reviews (24)</Title>
@@ -91,6 +91,7 @@ export function VideoPage() {
             <Progress size="sm" value={80} />
           </div>
 
+          {/* TODO: Get maybe some overall comments */}
           <div className={classes.quotes}>
             <Blockquote>Cool editing!</Blockquote>
 
@@ -101,14 +102,20 @@ export function VideoPage() {
             <Blockquote>Maybe you can shorten the intro a bit?</Blockquote>
           </div>
 
+          {/* TODO: Show a nice list of the reviews */}
           <Button variant="subtle">View all reviews</Button>
         </div>
-      )}
-
-      {video.reviews.length === 0 && (
-        <Anchor component={Link} to={`/video/${video.id}/review`}>
-          Be the first one to review!
-        </Anchor>
+      ) : (
+        <div className={classes.noReviews}>
+          <Button
+            component={Link}
+            to={`/video/${video.id}/review`}
+            size="md"
+            variant="light"
+          >
+            Be the first one to leave a review!
+          </Button>
+        </div>
       )}
     </Container>
   );
