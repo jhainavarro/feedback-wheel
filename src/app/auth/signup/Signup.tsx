@@ -6,26 +6,40 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as Google } from "shared/assets/google.svg";
 import { ReactComponent as Twitter } from "shared/assets/twitter.svg";
 import { ReactComponent as Facebook } from "shared/assets/facebook.svg";
 import { useStyles } from "./Signup.styles";
-import { useForm, zodResolver } from "@mantine/form";
 import { getInitialValues, Inputs, schema } from "./Signup.helpers";
+import { toast } from "shared/components";
+import { useSignup } from "../auth.api";
 
 interface SignupProps {
   className?: string;
 }
 
 export function Signup({ className }: SignupProps) {
+  const navigate = useNavigate();
   const { classes } = useStyles();
+  const { mutate: signup, isLoading } = useSignup();
   const form = useForm({
     initialValues: getInitialValues(),
     schema: zodResolver(schema),
   });
 
   function handleSubmit(data: Inputs) {
-    console.log(data);
+    signup(data, {
+      onSuccess() {
+        navigate("/home");
+        toast.success({
+          title: "Welcome! 🎉",
+          message:
+            "Glad to have you with us! Please feel free to explore the videos, and even submit one for others to check out!",
+        });
+      },
+    });
   }
 
   return (
@@ -65,7 +79,7 @@ export function Signup({ className }: SignupProps) {
           placeholder="Password"
         />
 
-        <Button type="submit" className={classes.submit}>
+        <Button type="submit" className={classes.submit} loading={isLoading}>
           Sign Up
         </Button>
       </form>
