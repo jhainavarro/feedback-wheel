@@ -50,11 +50,15 @@ export function useSaveVideo() {
             id: Date.now(), // Just for simplicity
             title,
           };
+
+          // TODO: Check for duplicates -- by URL + video ID maybe?
           const newList = stored.concat(newVideo);
 
           localStorage.setItem(VIDEOS_KEY, JSON.stringify(newList));
 
-          resolve(newVideo);
+          setTimeout(() => {
+            resolve(newVideo);
+          }, 1000);
         } catch (e) {
           console.error(e);
           reject(new Error("Unable to save video for review"));

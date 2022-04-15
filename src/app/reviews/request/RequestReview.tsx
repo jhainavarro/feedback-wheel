@@ -12,6 +12,7 @@ import { useDebouncedValue } from "@mantine/hooks";
 import { getThumbnailUrl, useSaveVideo } from "app/videos";
 import { useEffect } from "react";
 import { ReactComponent as Sparkles } from "shared/assets/sparkles.svg";
+import { toast } from "shared/components";
 import { getInitialValues, Inputs, schema } from "./RequestReview.helpers";
 import { useStyles } from "./RequestReview.styles";
 
@@ -34,7 +35,10 @@ export function RequestReview({ open, onClose, onSave }: RequestReviewProps) {
     saveVideo(data, {
       onSuccess() {
         onSave();
-        // TODO: Show success message
+        toast.success({
+          title: "Nice! 💯",
+          message: "Your video has been added to the list",
+        });
       },
       onError() {
         // TODO: Show error message
@@ -43,7 +47,7 @@ export function RequestReview({ open, onClose, onSave }: RequestReviewProps) {
   }
 
   useEffect(() => {
-    if (open) {
+    if (!open) {
       form.reset();
     }
 
