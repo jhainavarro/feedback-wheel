@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { SignupUserInput, User } from "./auth.types";
+import { LoginUserInput, SignupUserInput, User } from "./auth.types";
 
 export const USERS_KEY = "users";
 
@@ -23,6 +23,7 @@ export function useSignup() {
       const newUser = {
         ...input,
         id: Date.now(),
+        password: input.password, // TODO: Hash me
       };
 
       // TODO: Check for dupes
@@ -31,6 +32,29 @@ export function useSignup() {
       setTimeout(() => {
         localStorage.setItem(USERS_KEY, JSON.stringify(newList));
         resolve(newUser);
+      }, 2000);
+    });
+  });
+}
+
+/**
+ * @returns The user with the given credentials
+ */
+export function useLogin() {
+  return useMutation((input: LoginUserInput) => {
+    return new Promise<User>((resolve) => {
+      const list = getUsers();
+      const hashedPw = input.password; // TODO: Hash me
+      const user = list.find(
+        (u) => u.email === input.email && u.password === hashedPw
+      );
+
+      if (!user) {
+        throw new Error("User does not exist");
+      }
+
+      setTimeout(() => {
+        resolve(user);
       }, 2000);
     });
   });

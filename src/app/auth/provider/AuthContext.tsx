@@ -5,6 +5,7 @@ import { User } from "../auth.types";
 interface AuthContextData {
   user?: User;
   onSignup: (u: User) => void;
+  onLogin: (u: User) => void;
   onLogout: () => void;
 }
 

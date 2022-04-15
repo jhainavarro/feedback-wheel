@@ -15,12 +15,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setUser(user);
   }
 
+  function onLogin(user: User) {
+    saveSession(user);
+    setUser(user);
+  }
+
   function onLogout() {
     setUser(undefined);
   }
 
   return (
-    <AuthContext.Provider value={{ user, onSignup, onLogout }}>
+    <AuthContext.Provider value={{ user, onSignup, onLogin, onLogout }}>
       {children}
     </AuthContext.Provider>
   );
