@@ -7,20 +7,23 @@ import { Routing } from "app/Routing";
 import { StylesProvider } from "app/StylesProvider";
 import { ToastProvider } from "shared/components";
 import reportWebVitals from "./reportWebVitals";
+import { AuthProvider } from "app/auth";
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <StylesProvider>
-        <ToastProvider>
-          <BrowserRouter>
-            <Routing />
-          </BrowserRouter>
-        </ToastProvider>
-      </StylesProvider>
-      <ReactQueryDevtools />
+      <AuthProvider>
+        <StylesProvider>
+          <ToastProvider>
+            <BrowserRouter>
+              <Routing />
+            </BrowserRouter>
+          </ToastProvider>
+        </StylesProvider>
+        <ReactQueryDevtools />
+      </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")

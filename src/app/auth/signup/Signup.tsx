@@ -15,12 +15,14 @@ import { useStyles } from "./Signup.styles";
 import { getInitialValues, Inputs, schema } from "./Signup.helpers";
 import { toast } from "shared/components";
 import { useSignup } from "../auth.api";
+import { useAuth } from "../provider/AuthContext";
 
 interface SignupProps {
   className?: string;
 }
 
 export function Signup({ className }: SignupProps) {
+  const { onSignup } = useAuth();
   const navigate = useNavigate();
   const { classes } = useStyles();
   const { mutate: signup, isLoading } = useSignup();
@@ -31,7 +33,8 @@ export function Signup({ className }: SignupProps) {
 
   function handleSubmit(data: Inputs) {
     signup(data, {
-      onSuccess() {
+      onSuccess(newUser) {
+        onSignup(newUser);
         navigate("/home");
         toast.success({
           title: "Welcome! 🎉",
