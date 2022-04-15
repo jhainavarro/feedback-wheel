@@ -29,6 +29,7 @@ export const useStyles = createStyles((theme) => ({
 
   nav: {
     display: "flex",
+    alignItems: "center",
     gap: theme.spacing.lg,
   },
 

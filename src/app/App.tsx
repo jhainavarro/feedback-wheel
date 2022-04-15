@@ -1,48 +1,60 @@
-import { Button, Title } from "@mantine/core";
+import { Button, Menu, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
-import { StylesProvider } from "./StylesProvider";
+import { Link, Navigate, Outlet } from "react-router-dom";
+import { ReactComponent as Logout } from "shared/assets/logout.svg";
 import { useStyles } from "./App.styles";
+import { useAuth } from "./auth";
+import { initAuthStorage, initVideosStorage } from "./mocks";
 import { RequestReview } from "./reviews";
-import { initStorage } from "./videos";
-import { ToastProvider } from "shared/components";
 
 export function App() {
+  const { user, onLogout } = useAuth();
   const { classes } = useStyles();
   const [isRequestReviewOpen, setIsRequestReviewOpen] = useState(false);
 
+  // For easier testing
   useEffect(() => {
-    initStorage();
+    initAuthStorage();
+    initVideosStorage();
   }, []);
 
+  if (!user) {
+    return <Navigate replace to="/auth" />;
+  }
+
   return (
-    <StylesProvider>
-      <ToastProvider>
-        <div className={classes.app}>
-          <div className={classes.header}>
-            <Title className={classes.logo}>Feedback Wheel</Title>
+    <div className={classes.app}>
+      <div className={classes.header}>
+        <Title className={classes.logo}>Feedback Wheel</Title>
 
-            <nav className={classes.nav}>
-              <Button<typeof Link> component={Link} to="/home">
-                Home
-              </Button>
-              <Button onClick={() => setIsRequestReviewOpen(true)}>
-                Request reviews
-              </Button>
-            </nav>
-          </div>
+        <nav className={classes.nav}>
+          <Button<typeof Link> component={Link} to="/home">
+            Home
+          </Button>
+          <Button onClick={() => setIsRequestReviewOpen(true)}>
+            Request reviews
+          </Button>
 
-          <div className={classes.content}>
-            <Outlet />
-          </div>
+          <Menu gutter={12} size="xs">
+            <Menu.Item
+              icon={<Logout width={16} height={16} />}
+              onClick={() => onLogout()}
+            >
+              Log out
+            </Menu.Item>
+          </Menu>
+        </nav>
+      </div>
 
-          <RequestReview
-            open={isRequestReviewOpen}
-            onClose={() => setIsRequestReviewOpen(false)}
-            onSave={() => setIsRequestReviewOpen(false)}
-          />
-        </div>
-      </ToastProvider>
-    </StylesProvider>
+      <div className={classes.content}>
+        <Outlet />
+      </div>
+
+      <RequestReview
+        open={isRequestReviewOpen}
+        onClose={() => setIsRequestReviewOpen(false)}
+        onSave={() => setIsRequestReviewOpen(false)}
+      />
+    </div>
   );
 }

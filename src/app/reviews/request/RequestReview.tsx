@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { useDebouncedValue } from "@mantine/hooks";
+import { useAuth } from "app/auth";
 import { getThumbnailUrl, useSaveVideo } from "app/videos";
 import { useEffect } from "react";
 import { ReactComponent as Sparkles } from "shared/assets/sparkles.svg";
@@ -23,6 +24,7 @@ interface RequestReviewProps {
 }
 
 export function RequestReview({ open, onClose, onSave }: RequestReviewProps) {
+  const { user } = useAuth();
   const { classes } = useStyles();
   const form = useForm({
     initialValues: getInitialValues(),
@@ -32,18 +34,29 @@ export function RequestReview({ open, onClose, onSave }: RequestReviewProps) {
   const [urlDebounced] = useDebouncedValue(form.values.url, 500);
 
   function handleSubmit(data: Inputs) {
-    saveVideo(data, {
-      onSuccess() {
-        onSave();
-        toast.success({
-          title: "Nice! 💯",
-          message: "Your video has been added to the list",
-        });
-      },
-      onError() {
-        // TODO: Show error message
-      },
-    });
+    if (!user) {
+      toast.error({
+        message: "Oops, can't do that. Please refresh the page then try again.",
+      });
+
+      return;
+    }
+
+    saveVideo(
+      { ...data, submittedBy: user },
+      {
+        onSuccess() {
+          onSave();
+          toast.success({
+            title: "Nice! 💯",
+            message: "Your video has been added to the list",
+          });
+        },
+        onError() {
+          // TODO: Show error message
+        },
+      }
+    );
   }
 
   useEffect(() => {
