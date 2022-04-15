@@ -39,8 +39,8 @@ export function VideoPage() {
     );
   }
 
-  const canViewReviews = false; // TODO
-  const canAddReview = false; // TODO
+  const canViewReviews = true; // TODO
+  const canAddReview = true; // TODO
 
   return (
     <Container style={{ height: "100%" }}>
