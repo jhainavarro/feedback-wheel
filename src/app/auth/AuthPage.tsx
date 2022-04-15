@@ -26,7 +26,7 @@ export function AuthPage() {
             <div className={cx("login-prompt", classes.prompt)}>
               <Title>Welcome Back!</Title>
               <Text>
-                To keep connected with us please login with your personal info
+                To keep connected with us please login with your account
               </Text>
 
               <Text>Don't have an account yet?</Text>
@@ -37,7 +37,7 @@ export function AuthPage() {
 
             <div className={cx("signup-prompt", classes.prompt)}>
               <Title>Hey, Creator!</Title>
-              <Text>Enter your personal details and start journey with us</Text>
+              <Text>Enter your details and start your journey with us</Text>
 
               <Text>Already have an account?</Text>
               <Button variant="outline" onClick={() => setActive("login")}>

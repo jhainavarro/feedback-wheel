@@ -24,10 +24,20 @@ export const useStyles = createStyles((theme) => ({
     position: "absolute",
     top: 0,
     height: "100%",
+    width: "100%",
     background: theme.white,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+
+    "& > div": {
+      height: "100%",
+      width: "100%",
+      flex: "1 1 0",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
   },
 
   window: {
@@ -83,6 +93,9 @@ export const useStyles = createStyles((theme) => ({
       theme.colors.pink[6],
       theme.colors.violet[6]
     ),
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "0 0",
 
     transform: "translateX(0)",
     transition: "transform 500ms ease-in-out",
@@ -93,7 +106,7 @@ export const useStyles = createStyles((theme) => ({
     top: 0,
     height: "100%",
     width: "50%",
-    flex: `1 1 0`,
+    flex: "1 1 0",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
