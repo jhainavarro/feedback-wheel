@@ -1,49 +1,46 @@
 import { Button, Title } from "@mantine/core";
-import { useState } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { StylesProvider } from "./StylesProvider";
 import { useStyles } from "./App.styles";
 import { RequestReview } from "./reviews";
+import { initStorage } from "./videos";
 
 export function App() {
   const { classes } = useStyles();
-
-  const queryClient = new QueryClient();
-
   const [isRequestReviewOpen, setIsRequestReviewOpen] = useState(false);
 
+  useEffect(() => {
+    console.log("init");
+    initStorage();
+  }, []);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <StylesProvider>
-        <div className={classes.app}>
-          <div className={classes.header}>
-            <Title className={classes.logo}>Feedback Wheel</Title>
+    <StylesProvider>
+      <div className={classes.app}>
+        <div className={classes.header}>
+          <Title className={classes.logo}>Feedback Wheel</Title>
 
-            <nav className={classes.nav}>
-              <Button<typeof Link> component={Link} to="/home">
-                Home
-              </Button>
-              <Button onClick={() => setIsRequestReviewOpen(true)}>
-                Request reviews
-              </Button>
-            </nav>
-          </div>
-
-          <div className={classes.content}>
-            <Outlet />
-          </div>
-
-          <RequestReview
-            open={isRequestReviewOpen}
-            onClose={() => setIsRequestReviewOpen(false)}
-            onSave={() => setIsRequestReviewOpen(false)}
-          />
+          <nav className={classes.nav}>
+            <Button<typeof Link> component={Link} to="/home">
+              Home
+            </Button>
+            <Button onClick={() => setIsRequestReviewOpen(true)}>
+              Request reviews
+            </Button>
+          </nav>
         </div>
 
-        <ReactQueryDevtools />
-      </StylesProvider>
-    </QueryClientProvider>
+        <div className={classes.content}>
+          <Outlet />
+        </div>
+
+        <RequestReview
+          open={isRequestReviewOpen}
+          onClose={() => setIsRequestReviewOpen(false)}
+          onSave={() => setIsRequestReviewOpen(false)}
+        />
+      </div>
+    </StylesProvider>
   );
 }
