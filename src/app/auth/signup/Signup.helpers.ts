@@ -14,7 +14,7 @@ export type Inputs = {
  */
 export const schema = z.object({
   name: z.string().min(1, "Please enter a name"),
-  email: z.string().min(1, "Please enter your email"),
+  email: z.string().email(),
   password: z.string().min(1, "Please enter a password"),
 });
 
