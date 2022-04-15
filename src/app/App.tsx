@@ -3,9 +3,13 @@ import "./App.styles.ts";
 import { StylesProvider } from "./StylesProvider";
 import { useStyles } from "./App.styles";
 import { Button, Title } from "@mantine/core";
+import { RequestReview } from "./reviews";
+import { useState } from "react";
 
 export function App() {
   const { classes } = useStyles();
+
+  const [isRequestReviewOpen, setIsRequestReviewOpen] = useState(false);
 
   return (
     <StylesProvider>
@@ -17,7 +21,7 @@ export function App() {
             <Button<typeof Link> component={Link} to="/home">
               Home
             </Button>
-            <Button<typeof Link> component={Link} to="/request-review">
+            <Button onClick={() => setIsRequestReviewOpen(true)}>
               Request reviews
             </Button>
           </nav>
@@ -26,6 +30,12 @@ export function App() {
         <div className={classes.content}>
           <Outlet />
         </div>
+
+        <RequestReview
+          open={isRequestReviewOpen}
+          onClose={() => setIsRequestReviewOpen(false)}
+          onSave={() => setIsRequestReviewOpen(false)}
+        />
       </div>
     </StylesProvider>
   );

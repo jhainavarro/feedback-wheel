@@ -1,7 +1,7 @@
 import { Card, Image, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getThumbnailUrl, useVideos } from "app/videos/videos.utils";
+import { getThumbnailUrl, useVideos } from "app/videos";
 import { useStyles } from "./Home.styles";
 
 export function Home() {
