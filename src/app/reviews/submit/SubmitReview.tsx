@@ -80,7 +80,7 @@ export function SubmitReview() {
           )}
           <Title order={2}>Thank you!</Title>
           <Text>You've just made this community a better place</Text>
-          <Anchor className={classes.videosLink} component={Link} to="/">
+          <Anchor className={classes.videosLink} component={Link} to="/home">
             Check out other videos you can review
           </Anchor>
         </div>
