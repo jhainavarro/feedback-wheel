@@ -45,17 +45,6 @@ export const schema = z.object({
 });
 
 /**
- * Options on the rating input for each criteria
- */
-export const SLIDER_MARKS = [
-  { value: 1 },
-  { value: 2 },
-  { value: 3 },
-  { value: 4 },
-  { value: 5 },
-];
-
-/**
  * Defines the content of each form field
  */
 export type FormField = {
