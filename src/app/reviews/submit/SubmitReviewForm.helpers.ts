@@ -18,6 +18,7 @@ export type Inputs = {
   lengthAndPacingComments: string;
   packaging: number;
   packagingComments: string;
+  overallComments: string;
 };
 
 /**
@@ -40,6 +41,7 @@ export const schema = z.object({
   lengthAndPacingComments: commentValidator,
   packaging: ratingValidator,
   packagingComments: commentValidator,
+  overallComments: commentValidator,
 });
 
 /**
@@ -133,6 +135,7 @@ export function getInitialValues(): Inputs {
     lengthAndPacingComments: "",
     packaging: 0,
     packagingComments: "",
+    overallComments: "",
   };
 }
 

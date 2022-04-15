@@ -1,6 +1,8 @@
 import { Button, Slider, Text, Textarea, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
+import { Video } from "app/videos";
 import { useState } from "react";
+import { useAddReview } from "../reviews.api";
 import {
   FORM_FIELDS,
   getCommentPlaceholder,
@@ -13,28 +15,33 @@ import { useStyles } from "./SubmitReviewForm.styles";
 
 interface SubmitReviewFormProps {
   className?: string;
+  video: Video;
   onSave: () => void;
 }
 
-export function SubmitReviewForm({ className, onSave }: SubmitReviewFormProps) {
+export function SubmitReviewForm({
+  className,
+  video,
+  onSave,
+}: SubmitReviewFormProps) {
   const { classes, cx } = useStyles();
   const form = useForm({
     initialValues: getInitialValues(),
     schema: zodResolver(schema),
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutate: addReview, isLoading } = useAddReview(video);
   const [isSuccess, setIsSuccess] = useState(false);
 
   function handleSubmit(data: Inputs) {
-    console.log(data);
-    setIsLoading(true);
-
-    // TODO: Persist to data storage
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsSuccess(true);
-      onSave();
-    }, 3000);
+    addReview(
+      { ...data, videoId: video.id },
+      {
+        onSuccess() {
+          setIsSuccess(true);
+          onSave();
+        },
+      }
+    );
   }
 
   function renderTitle(title: string, required = true) {
@@ -86,6 +93,7 @@ export function SubmitReviewForm({ className, onSave }: SubmitReviewFormProps) {
       <div className={classes.field}>
         {renderTitle("Any other feedback?", false)}
         <Textarea
+          {...form.getInputProps("overallComments")}
           placeholder="You know the drill"
           className={classes.textarea}
           minRows={4}

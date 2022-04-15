@@ -12,7 +12,6 @@ export function App() {
   const [isRequestReviewOpen, setIsRequestReviewOpen] = useState(false);
 
   useEffect(() => {
-    console.log("init");
     initStorage();
   }, []);
 
