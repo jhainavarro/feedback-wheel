@@ -2,7 +2,7 @@ import { Anchor, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import Lottie from "lottie-react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useVideo } from "app/videos/videos.api";
+import { useGetVideo } from "app/videos/videos.api";
 import { ReactComponent as EmptyImg } from "shared/assets/empty-1.svg";
 import checkmarkAnimation from "shared/assets/success-lottie.json";
 import { useStyles } from "./SubmitReview.styles";
@@ -11,7 +11,7 @@ import { getEmbedUrl } from "app/videos/videos.utils";
 
 export function SubmitReview() {
   const params = useParams();
-  const video = useVideo(params.id);
+  const video = useGetVideo(Number(params.id));
   const { classes, cx } = useStyles();
   const [showSuccess, setShowSuccess] = useState(false);
 

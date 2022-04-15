@@ -1,19 +1,30 @@
-import { Anchor } from "@mantine/core";
+import { Card, Image, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { MOCK_VIDEOS_FOR_REVIEW } from "./Home.helpers";
+import { getThumbnailUrl, useVideos } from "app/videos/videos.utils";
+import { useStyles } from "./Home.styles";
 
 export function Home() {
-  const videos = MOCK_VIDEOS_FOR_REVIEW;
+  const { classes } = useStyles();
+  const videos = useVideos();
 
   return (
-    <>
+    <div className={classes.container}>
       {videos.map((video) => (
-        <div key={video.id}>
-          <Anchor component={Link} to={`/video/${video.id}/review`}>
-            Review video #{video.id}
-          </Anchor>
-        </div>
+        <Card
+          key={video.id}
+          className={classes.card}
+          withBorder
+          shadow="md"
+          component={Link}
+          to={`/video/${video.id}/review`}
+          title={video.title}
+        >
+          <Card.Section>
+            <Image src={getThumbnailUrl(video.url)} alt={video.title} />
+          </Card.Section>
+          <Text className={classes.title}>{video.title}</Text>
+        </Card>
       ))}
-    </>
+    </div>
   );
 }
