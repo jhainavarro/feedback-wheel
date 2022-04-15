@@ -54,4 +54,20 @@ export const useStyles = createStyles((theme) => ({
   videosLink: {
     marginTop: theme.spacing.md,
   },
+
+  empty: {
+    height: "100%",
+    display: "grid",
+    placeItems: "center",
+  },
+
+  notFound: {
+    fontStyle: "italic",
+    fontWeight: 600,
+    marginTop: 32,
+  },
+
+  emptyImg: {
+    width: 500,
+  },
 }));

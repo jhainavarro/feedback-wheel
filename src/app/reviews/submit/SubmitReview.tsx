@@ -1,14 +1,35 @@
-import { Anchor, SimpleGrid, Text, Title } from "@mantine/core";
-import { useState } from "react";
+import { Anchor, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import Lottie from "lottie-react";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useGetVideo } from "app/videos/videos.api";
+import { ReactComponent as EmptyImg } from "shared/assets/empty-1.svg";
 import checkmarkAnimation from "shared/assets/success-lottie.json";
 import { useStyles } from "./SubmitReview.styles";
 import { SubmitReviewForm } from "./SubmitReviewForm";
-import { Link } from "react-router-dom";
+import { getEmbedUrl } from "app/videos/videos.utils";
 
 export function SubmitReview() {
+  const params = useParams();
+  const video = useGetVideo(Number(params.id));
   const { classes, cx } = useStyles();
   const [showSuccess, setShowSuccess] = useState(false);
+
+  if (!params.id || !video) {
+    return (
+      <div className={classes.empty}>
+        <Stack align="center">
+          <EmptyImg className={classes.emptyImg} />
+          <Text className={classes.notFound} size="xl">
+            Oops! You might be lost ...
+          </Text>
+          <Anchor component={Link} to="/">
+            Back to home page
+          </Anchor>
+        </Stack>
+      </div>
+    );
+  }
 
   return (
     <SimpleGrid
@@ -22,7 +43,7 @@ export function SubmitReview() {
           width="280"
           height="400"
           // TODO: Get actual video to review
-          src="https://www.youtube-nocookie.com/embed/4prVdA7_6u0"
+          src={getEmbedUrl(video.url)}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
