@@ -1,12 +1,19 @@
 import { Button, Container, Text, Title } from "@mantine/core";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { useStyles } from "./AuthPage.styles";
 import { Login } from "./login/Login";
+import { useAuth } from "./provider/AuthContext";
 import { Signup } from "./signup/Signup";
 
 export function AuthPage() {
+  const { user } = useAuth();
   const { classes, cx } = useStyles();
   const [active, setActive] = useState<"signup" | "login">("login");
+
+  if (user) {
+    return <Navigate replace to="/home" />;
+  }
 
   return (
     <div className={classes.grid}>

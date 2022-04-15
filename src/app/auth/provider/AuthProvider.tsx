@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { ReactNode, useState } from "react";
 import { User } from "../auth.types";
 import { AuthContext } from "./AuthContext";
@@ -9,12 +8,7 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | undefined>();
-
-  // Get the saved session upon loading
-  useEffect(() => {
-    setUser(getSavedSession());
-  }, []);
+  const [user, setUser] = useState<User | undefined>(getSavedSession());
 
   function onSignup(user: User) {
     saveSession(user);

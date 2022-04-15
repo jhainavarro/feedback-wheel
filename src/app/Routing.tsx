@@ -7,7 +7,7 @@ import { SubmitReview } from "./reviews";
 export function Routing() {
   return (
     <Routes>
-      <Route path="auth" element={<AuthPage />} />
+      <Route path="/auth" element={<AuthPage />} />
       <Route path="/" element={<App />}>
         <Route path="/home" element={<Home />} />
         <Route path="/video/:id/review" element={<SubmitReview />} />
