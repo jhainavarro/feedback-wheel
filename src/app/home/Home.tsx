@@ -40,7 +40,13 @@ export function Home() {
               title={video.title}
             >
               <Card.Section>
-                <Image src={getThumbnailUrl(video.url)} alt={video.title} />
+                <Image
+                  src={getThumbnailUrl(video.url)}
+                  alt={video.title}
+                  withPlaceholder
+                  width={320}
+                  height={180}
+                />
               </Card.Section>
               <Text className={classes.title}>{video.title}</Text>
             </Card>

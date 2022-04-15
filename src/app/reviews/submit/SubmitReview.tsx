@@ -63,6 +63,7 @@ export function SubmitReview() {
         <div className={cx(classes.formContainer, { active: !showSuccess })}>
           <SubmitReviewForm
             className={classes.form}
+            video={video}
             onSave={() => setShowSuccess(true)}
           />
         </div>

@@ -23,7 +23,7 @@ export const useStyles = createStyles((theme) => ({
   },
 
   formContainer: {
-    zIndex: 2,
+    zIndex: -1,
     overflow: "hidden",
 
     opacity: 1,
@@ -31,6 +31,7 @@ export const useStyles = createStyles((theme) => ({
     transition: "max-height 300ms 150ms, opacity 300ms",
 
     "&.active": {
+      zIndex: 2,
       opacity: 1,
       maxHeight: "100%",
     },
@@ -39,6 +40,7 @@ export const useStyles = createStyles((theme) => ({
   form: {},
 
   success: {
+    zIndex: -1,
     position: "absolute",
     top: 0,
     marginTop: 160,
@@ -47,6 +49,7 @@ export const useStyles = createStyles((theme) => ({
     transition: "opacity 500ms 800ms",
 
     "&.active": {
+      zIndex: 2,
       opacity: 1,
     },
   },

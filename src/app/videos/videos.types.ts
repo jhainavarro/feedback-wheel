@@ -1,3 +1,5 @@
+import { Review } from "app/reviews";
+
 export interface Video {
   // Used a number for `id` here for simplicity. But ideally, we should only be
   // exposing a UUID so the numerical IDs can be assumed to be used as
@@ -5,6 +7,7 @@ export interface Video {
   id: number;
   url: string;
   title: string;
+  reviews: Review[];
   // TODO: Add creator info
 }
 
@@ -30,4 +33,9 @@ export interface YoutubeVideo {
 
 export interface AddVideoInput {
   url: string;
+}
+
+export interface EditVideoInput {
+  id: Video["id"];
+  reviews?: Review[];
 }
