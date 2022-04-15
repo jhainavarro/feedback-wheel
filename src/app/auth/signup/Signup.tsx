@@ -43,7 +43,7 @@ export function Signup({ className }: SignupProps) {
         });
       },
       onError() {
-        // TODO: Show error message
+        // TODO: Error handling
       },
     });
   }

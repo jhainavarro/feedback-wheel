@@ -8,7 +8,6 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Google } from "shared/assets/google.svg";
 import { ReactComponent as Twitter } from "shared/assets/twitter.svg";
@@ -43,7 +42,7 @@ export function Login({ className }: LoginProps) {
         });
       },
       onError() {
-        // TODO: Show error message
+        // TODO: Error handling
       },
     });
   }
