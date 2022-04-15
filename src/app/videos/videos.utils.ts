@@ -7,9 +7,12 @@ import { Video } from "./videos.types";
  * @returns The ID of the Youtube video given the URL
  */
 function getVideoId(youtubeUrl: string) {
-  // TODO: Validation; exception handling
-  const videoId = new URL(youtubeUrl).searchParams.get("v");
-  return videoId;
+  try {
+    const videoId = new URL(youtubeUrl).searchParams.get("v");
+    return videoId;
+  } catch {
+    return undefined;
+  }
 }
 
 /**
@@ -17,7 +20,11 @@ function getVideoId(youtubeUrl: string) {
  * @returns The URL for embedding the given Youtube video
  */
 export function getEmbedUrl(youtubeUrl: string) {
-  return `https://www.youtube-nocookie.com/embed/${getVideoId(youtubeUrl)}`;
+  const videoId = getVideoId(youtubeUrl);
+
+  return videoId
+    ? `https://www.youtube-nocookie.com/embed/${videoId}`
+    : undefined;
 }
 
 /**
@@ -26,7 +33,11 @@ export function getEmbedUrl(youtubeUrl: string) {
  * @returns The URL to the default thumbnail
  */
 export function getThumbnailUrl(youtubeUrl: string) {
-  return `https://i.ytimg.com/vi/${getVideoId(youtubeUrl)}/mqdefault.jpg`;
+  const videoId = getVideoId(youtubeUrl);
+
+  return videoId
+    ? `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`
+    : undefined;
 }
 
 /**
