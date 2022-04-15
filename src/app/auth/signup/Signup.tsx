@@ -50,6 +50,7 @@ export function Signup({ className }: SignupProps) {
       <form className={classes.form} onSubmit={form.onSubmit(handleSubmit)}>
         <Title className={classes.title}>Create Account</Title>
 
+        {/* TODO: SSO logic */}
         <div className={classes.socials}>
           <ActionIcon size="lg">
             <Google />
