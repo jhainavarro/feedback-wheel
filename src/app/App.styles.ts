@@ -36,6 +36,6 @@ export const useStyles = createStyles((theme) => ({
     flexGrow: 1,
     paddingTop: 80 + theme.spacing.xl, // Depends on header height
     paddingInline: theme.spacing.xl * 2,
-    paddingBottom: theme.spacing.xl,
+    paddingBottom: theme.spacing.xl * 4,
   },
 }));
