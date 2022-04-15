@@ -18,12 +18,12 @@ function getUsers() {
  */
 export function useSignup() {
   return useMutation((input: SignupUserInput) => {
-    return new Promise<User>((resolve) => {
+    return new Promise<User>(async (resolve) => {
       const list = getUsers();
       const newUser = {
         ...input,
         id: Date.now(),
-        password: input.password, // TODO: Hash me
+        password: await hashPassword(input.password),
       };
 
       // TODO: Check for dupes
@@ -42,9 +42,9 @@ export function useSignup() {
  */
 export function useLogin() {
   return useMutation((input: LoginUserInput) => {
-    return new Promise<User>((resolve) => {
+    return new Promise<User>(async (resolve) => {
       const list = getUsers();
-      const hashedPw = input.password; // TODO: Hash me
+      const hashedPw = await hashPassword(input.password);
       const user = list.find(
         (u) => u.email === input.email && u.password === hashedPw
       );
@@ -58,4 +58,19 @@ export function useLogin() {
       }, 2000);
     });
   });
+}
+
+/**
+ *
+ * @param password
+ * @returns A hex string of the SHA-256 hash of the given password
+ */
+async function hashPassword(password: string) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hash = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+
+  return hash;
 }
