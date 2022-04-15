@@ -20,12 +20,15 @@ export function useGetVideos() {
  * @param id
  * @returns The Video object with the given id
  */
-export function useGetVideo(id?: Video["id"]) {
-  if (!id) {
-    return undefined;
-  }
-
-  return MOCK_VIDEOS_FOR_REVIEW.find((video) => video.id === id);
+export function useGetVideo(id: Video["id"]) {
+  return useQuery([VIDEOS_KEY, id], () => {
+    return new Promise<Video | undefined>((resolve) => {
+      setTimeout(() => {
+        const video = MOCK_VIDEOS_FOR_REVIEW.find((video) => video.id === id);
+        resolve(video);
+      }, 2000);
+    });
+  });
 }
 
 const MOCK_VIDEOS_FOR_REVIEW: Video[] = [
